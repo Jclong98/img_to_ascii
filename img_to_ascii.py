@@ -6,7 +6,11 @@ import requests
 from PIL import Image
 
 
+symbols = list("@MBHENR#KWXDFPQASUZbdehx*8Gm&04LOVYkpq5Tagns69owz$CIu23Jcfry%1v7l+it[]{}?j|()=~!-/<>\"^_';,:`. ")
+symbols = list("""$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'.""")
 symbols = [' ', '░','▒', '▓', '█']
+symbols = [ ' ', '.', ':', '-', '=', '+', '*', '#', '%', '@' ]
+# symbols.reverse()
 
 
 def img_to_ascii(url='', filepath='', max_width=100):
@@ -54,7 +58,7 @@ def img_to_ascii(url='', filepath='', max_width=100):
 
     for row in rows:
         # getting the symbol for the light value from symbols dict
-        row_values = [int((value/255)*len(symbols)-1) for value in row]
+        row_values = [int((value/255)*(len(symbols)-1)) for value in row]
         ascii_img.append([symbols[v] for v in row_values])
         
     return ascii_img
@@ -72,10 +76,12 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    max_width = 1000
+
     if args.filepath:
-        ascii_img = img_to_ascii(filepath=args.filepath, max_width=100)
+        ascii_img = img_to_ascii(filepath=args.filepath, max_width=max_width)
     else:
-        ascii_img = img_to_ascii(filepath=args.filepath, max_width=100)
+        ascii_img = img_to_ascii(url=args.url, max_width=max_width)
     
     # outputting the result into a file called output.txt
     with open(args.output, "w", encoding='utf-8') as f:
