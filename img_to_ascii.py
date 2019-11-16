@@ -18,6 +18,9 @@ def img_to_ascii(url='', filepath='', max_width=100):
     url: str
         the url to an image
 
+    filepath: str
+        filepath to image
+
     max_width: int
         an int that decides how many characters are allowed 
         in the width and shrinks the image accordingly
@@ -75,7 +78,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    max_width = 40
+    max_width = 100
 
     if args.filepath:
         ascii_img = img_to_ascii(filepath=args.filepath, max_width=max_width)
