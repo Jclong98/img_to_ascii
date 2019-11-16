@@ -72,20 +72,18 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-u', '--url', help="the url to an image")
     parser.add_argument('-f', '--filepath', help="the filepath to an image")
-    parser.add_argument('-o', '--output', help="a filepath to the file you want the output to be save to", required=True)
 
     args = parser.parse_args()
 
-    max_width = 1000
+    max_width = 40
 
     if args.filepath:
         ascii_img = img_to_ascii(filepath=args.filepath, max_width=max_width)
     else:
         ascii_img = img_to_ascii(url=args.url, max_width=max_width)
     
-    # outputting the result into a file called output.txt
-    with open(args.output, "w", encoding='utf-8') as f:
-        # joining all the symbols together to be printed to a file
-        for row in ascii_img:
-            line = ''.join(row)
-            print(line, file=f)
+    # joining all the symbols together to be printed
+    for row in ascii_img:
+        line = ''.join(row)
+        # print(line, file=f)
+        print(line)
