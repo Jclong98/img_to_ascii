@@ -1,25 +1,22 @@
+import os
+from collections import Counter
 from io import BytesIO
 from pprint import pprint
-from collections import Counter
 
 import requests
 from PIL import Image
 
-
-symbols = list("@MBHENR#KWXDFPQASUZbdehx*8Gm&04LOVYkpq5Tagns69owz$CIu23Jcfry%1v7l+it[]{}?j|()=~!-/<>\"^_';,:`. ")
-symbols = list("""$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'.""")
-symbols = [' ', '░','▒', '▓', '█']
+# symbols = list("@MBHENR#KWXDFPQASUZbdehx*8Gm&04LOVYkpq5Tagns69owz$CIu23Jcfry%1v7l+it[]{}?j|()=~!-/<>\"^_';,:`. ")
+# symbols = list("""$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'.""")
+# symbols = [' ', '░','▒', '▓', '█']
 symbols = [ ' ', '.', ':', '-', '=', '+', '*', '#', '%', '@' ]
 # symbols.reverse()
 
 
-def img_to_ascii(url='', filepath='', max_width=100):
+def img_to_ascii(location, max_width=100):
     """
-    url: str
-        the url to an image
-
-    filepath: str
-        filepath to image
+    location: str
+        filepath or url to image
 
     max_width: int
         an int that decides how many characters are allowed 
@@ -35,11 +32,12 @@ def img_to_ascii(url='', filepath='', max_width=100):
     """
 
     # reading image
-    if not filepath:
-        response = requests.get(url)
+    # if the location exists on the system, use it. else, try to find it online.
+    if os.path.exists(location):
+        img = Image.open(location)
+    else:
+        response = requests.get(location)
         img = Image.open(BytesIO(response.content))
-    else:   
-        img = Image.open(filepath)
 
     width, height = img.size
 
@@ -73,17 +71,17 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-u', '--url', help="the url to an image")
-    parser.add_argument('-f', '--filepath', help="the filepath to an image")
+    parser.add_argument('-l', '--location', help="filepath or url to an image")
+    parser.add_argument('-w', '--width', help="How many characters wide the output will be. (including new line characters)")
 
     args = parser.parse_args()
 
-    max_width = 100
-
-    if args.filepath:
-        ascii_img = img_to_ascii(filepath=args.filepath, max_width=max_width)
+    if args.width:
+        max_width = int(args.width)
     else:
-        ascii_img = img_to_ascii(url=args.url, max_width=max_width)
+        max_width = 100
+
+    ascii_img = img_to_ascii(args.location, max_width=max_width)
     
     # joining all the symbols together to be printed
     for row in ascii_img:
