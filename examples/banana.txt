@@ -1,42 +1,3 @@
-to use img_to_ascii, run 
-```
-python img_to_ascii.py <filepath or url to the image>
-    -w --width <max character width of output>
-```
-
-this will print out the output to the terminal. If you want to save it to a file, use `> filename.txt`
-
----
-
-## Sample Usage:
-
-![Banana](examples/banana.png)
-
-`python image_to_ascii.py ./examples/banana.png -m 40 > ./examples/output.txt`:
-
-
-```
-       -=                             
-       -=+=                           
-      -:-==-                          
-        ---=                     @=++ 
-        ---------+==-   ==--=-======  
-       ::--:-===+*++-===-:--======    
-     -------==+=+***===---======+=-   
-     ---:  .--=+++==+++===-==-==      
-    --------:==*+-.  .:+=======       
-   --==----:--=++++++++***+++*-       
-    ===-----::-=+=+++++********       
-  -:--==-::.  :::=+=++++*****-        
-  ----=====--===+++====++**+-         
-:------===============++++==          
------================++++-            
-----=============++++++++:            
-```
-
-`python image_to_ascii.py ./examples/banana.png > ./examples/output.txt`:
-
-```
                    :=:.                                                                           
                  @--=+-                                                                           
                   :--+*=*.                                                                        
@@ -79,4 +40,3 @@ this will print out the output to the terminal. If you want to save it to a file
 -------------=================================+=++++++++++++++++=-                                
 -----------===================================++++++++++++++++++-::=                              
 -----------===============================+++++++++++++++++++++=-:..                              
-```

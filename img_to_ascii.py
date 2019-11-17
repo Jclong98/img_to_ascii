@@ -71,7 +71,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-l', '--location', help="filepath or url to an image")
+    parser.add_argument('location', help="filepath or url to an image")
     parser.add_argument('-w', '--width', help="How many characters wide the output will be. (including new line characters)")
 
     args = parser.parse_args()
