@@ -6,8 +6,6 @@ from pprint import pprint
 import requests
 from PIL import Image
 
-# symbols = list("@MBHENR#KWXDFPQASUZbdehx*8Gm&04LOVYkpq5Tagns69owz$CIu23Jcfry%1v7l+it[]{}?j|()=~!-/<>\"^_';,:`. ")
-# symbols = list("""$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'.""")
 # symbols = [' ', '░','▒', '▓', '█']
 symbols = [ ' ', '.', ':', '-', '=', '+', '*', '#', '%', '@' ]
 # symbols.reverse()
@@ -69,6 +67,7 @@ def img_to_ascii(location, max_width=100):
 if __name__ == "__main__":
 
     import argparse
+    from time import sleep
 
     parser = argparse.ArgumentParser()
     parser.add_argument('location', help="filepath or url to an image")
@@ -88,3 +87,4 @@ if __name__ == "__main__":
         line = ''.join(row)
         # print(line, file=f)
         print(line)
+        sleep(0.01)
