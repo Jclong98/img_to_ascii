@@ -6,12 +6,9 @@ from pprint import pprint
 import requests
 from PIL import Image
 
-# symbols = [' ', '░','▒', '▓', '█']
-symbols = [ ' ', '.', ':', '-', '=', '+', '*', '#', '%', '@' ]
-# symbols.reverse()
 
 
-def img_to_ascii(location, max_width=100):
+def img_to_ascii(location, symbols, max_width=100):
     """
     location: str
         filepath or url to image
@@ -72,15 +69,21 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('location', help="filepath or url to an image")
     parser.add_argument('-w', '--width', help="How many characters wide the output will be. (including new line characters)")
+    parser.add_argument('-b', '--blocks', help="makes the characterset use unicode shade blocks", action='store_true')
 
     args = parser.parse_args()
+
+    if args.blocks:
+        characters = [' ', '░','▒', '▓', '█']
+    else:
+        characters = [ ' ', '.', ':', '-', '=', '+', '*', '#', '%', '@' ]
 
     if args.width:
         max_width = int(args.width)
     else:
         max_width = 100
 
-    ascii_img = img_to_ascii(args.location, max_width=max_width)
+    ascii_img = img_to_ascii(args.location, characters, max_width=max_width)
     
     # joining all the symbols together to be printed
     for row in ascii_img:
